@@ -10,3 +10,17 @@
     top: 43%;
     left: 60%;
 }
+#checkButton button{
+    width: 60px;
+    height: 25px;
+    font-size: 15px;
+}
+#myList li{
+    position: relative;
+    left: 100px;
+}
+
+#myList p{
+    font-size: 30px;
+    color: red;
+}

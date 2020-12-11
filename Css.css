@@ -23,13 +23,13 @@
             text-decoration: none;
             color:black;
         }
-     .section{
+     #section{
           border : 2px solid black;
           height: 1000px;
           border-bottom: 0px;
           position: relative;
       }
-      .section::after{ /*가상클래스 만들기 이거로 배경만 흐릿하게 할 수 있다. */
+      #section::after{ /*가상클래스 만들기 이거로 배경만 흐릿하게 할 수 있다. */
                         /*content 가 추가 되어야 after가 생성된다. */
         background-image: url('bg-section.jpg');
         background-size: 100% 100%;

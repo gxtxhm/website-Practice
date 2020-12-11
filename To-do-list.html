@@ -6,6 +6,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="Css.css">
     <link rel="stylesheet" href="button.css">
+    <link rel="stylesheet" href="create.css">
 </head>
 <body>
     <div id=wrapper>
@@ -15,25 +16,31 @@
            </h1>
         </header>
 
-        <section class="section">
+        <section id="section">
           
-                <h4><a href="To-do-list.html">my list</a></h4>  
-                <ul>
+            <h4><a href="To-do-list.html" id="Home">my list</a></h4>  
+
+            <ul id="myList">
+                    
+            </ul>
+            
+                <ul id="buttonUl">
                     <li>
-                        <a href="To-do-list-create.html">Create</a>
+                        <button onclick="createFieldAdd()">Create</button>
                     </li>
                     <li>
-                        <a href="To-do-list-change.html">Change</a>
+                        <button>Change</button>
                     </li>
                     <li>
-                        <a href="To-do-list-finish.html">Finish</a>
+                        <button>Finish</button>
                     </li>
                     <li>
-                        <a href="To-do-list-delete.html">Delete</a>
+                        <button>Delete</button>
                     </li>
                 </ul>
                
                 
+  
                
                
         </section>
