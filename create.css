@@ -1,13 +1,13 @@
 #create{
     position: absolute;
-    top: 40%;
+    top: 75%;
     left: 25%;
     
 }
 
 #checkButton{
     position: absolute;
-    top: 43%;
+    top: 78%;
     left: 60%;
 }
 #checkButton button{
@@ -15,12 +15,14 @@
     height: 25px;
     font-size: 15px;
 }
-#myList li{
+.myListLI{
     position: relative;
     left: 100px;
+    line-height: normal;
 }
 
 #myList p{
     font-size: 30px;
     color: red;
+    display: inline;
 }

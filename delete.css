@@ -1,0 +1,10 @@
+#DeletecheckButton{
+    position: absolute;
+    top: 78%;
+    left: 60%;
+}
+#DeletecheckButton button{
+    width: 60px;
+    height: 25px;
+    font-size: 15px;
+}
