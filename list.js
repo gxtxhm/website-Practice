@@ -33,12 +33,12 @@ Dbutton1.innerText="삭제";
 Dbutton2.innerText="취소";
 Ddiv.appendChild(Dbutton1);
 Ddiv.appendChild(Dbutton2);
-//Delete메뉴 구현때 필요한 변수들
 
+//목록 만들때 부여할 id값 변수
+var idValue=0;
 
 //-----***Create 관련 함수-----------------------------------------
 
-//my list에 항목 추가
 function addList(){
     var aL=document.getElementById('Input').value;
     list[listLength]=aL;
@@ -48,6 +48,7 @@ function addList(){
     var li=document.createElement('li');
     li.classList+='myListLI';
     li.setAttribute('name','myListLI');
+    li.setAttribute('id',idValue);
     var ul=document.getElementById('myList');
     var text=document.createTextNode(aL);
     var p=document.createElement('p');
@@ -57,6 +58,7 @@ function addList(){
      
     alert('항목추가완료');
     listLength++;
+    idValue++;
 }
 //추가 기능 필드 삭제
 function deleteFieldAdd(){
@@ -70,63 +72,73 @@ function createFieldAdd(){
     sc.appendChild(label);
     sc.appendChild(div);
     var ok=document.getElementById('OK');
-var cancel=document.getElementById('CANCEL');
-ok.addEventListener('click',addList);
-cancel.addEventListener('click',deleteFieldAdd);
+    var cancel=document.getElementById('CANCEL');
+    ok.addEventListener('click',addList);
+    cancel.addEventListener('click',deleteFieldAdd);
 }
 //-----***------------------------------------------------------
 
 // Delete 관련 함수-----------------------------------------------
 
-//체크박스 UI생성 함수
-function ShowCheckBox(){
-    var li=document.getElementsByClassName('myListLI');
-    var checkBox;
-    for(var i=0;list.length;i++)
-    {
-        checkBox=document.createElement('input');
-        checkBox.type="checkbox";
-        checkBox.setAttribute('name','checkBox');
-        li[i].appendChild(checkBox);
-        
-    }
+function showDeleteUI(){//Delete버튼누르면 체크박스와 삭제/취소 버튼생성
     var sc= document.getElementById('section');
     sc.appendChild(Ddiv);
-    var ok=document.getElementById('DeleteOK');
-    var cancel=document.getElementById('DeleteCANCEL');
-    ok.addEventListener('click',deleteButtonOK);
-    cancel.addEventListener('click',deleteButtonCancel);
-}
-function deleteButtonCancel(){//취소버튼 누를때 동작함수
-    section.removeChild(Ddiv);
-    deleteCheckBox();
-    alert('항목삭제를 취소하였습니다.');
-}
-function deleteButtonOK(){//삭제버튼 누를때 동작함수
-    var li=document.getElementsByName('myListLI');
-    var checkBox=document.getElementsByName('checkBox');
-    var ischecked;
-    for(var i=0;i<listLength;i++)
-    {
-        ischecked=checkBox[i].getAttribute('checked');
-        if(ischecked==true)
-        {
-            //li[i].remove();
-        }
-    }
-
-    section.removeChild(Ddiv);
-    deleteCheckBox();
+    var Dok=document.getElementById('DeleteOK');
+    var Dcancel=document.getElementById('DeleteCANCEL');
+    Dok.addEventListener('click',clickDeleteButton);      
+    Dcancel.addEventListener('click',clickDeleteCancelButton);  
+    showCheckBox();
 }
 
-function deleteCheckBox(){//체크박스 UI삭제함수
-    //var checkBox=document.getElementsByName('checkBox');
-    var li=document.getElementsByClassName('myListLI');
+function showCheckBox(){//체크박스 UI생성
     
-    for(var i=0;i<listLength;i++)
-    {   
-       // var a=document.getElementByName('checkBox');
-        section.removeChild(li[i]);
+    for(var i=0;i<idValue;i++)
+    {
+        var checkBox=document.createElement('input');
+        checkBox.setAttribute('type','checkbox');
+        checkBox.setAttribute('class','checkBox');
+        var li=document.getElementById(i);
+        li.appendChild(checkBox);
+    }
+    
+} 
+function deleteUI(){//Delete UI 삭제함수
+    section.removeChild(Ddiv);
+
+}
+
+function clickDeleteButton(){//삭제버튼 눌렀을때
+    alert('삭제를 완료했습니다.');
+    deleteUI();
+    getCheckBoxValue();
+    deleteCheckBox();
+}
+
+function clickDeleteCancelButton(){//취소버튼 눌렀을때
+    alert('삭제를 취소합니다.');
+    deleteUI();
+    deleteCheckBox();
+}
+
+function deleteCheckBox(){//체크박스 삭제하기
+   
+    for(var i=0;i<idValue;i++)
+    {
+        var li=document.getElementById(i);
+        li.removeChild(li.childNodes[1]);
+    }
+}
+
+function getCheckBoxValue(){//체크된 체크박스 display:none으로 만들기
+    for(var i=0;i<idValue;i++)
+    {
+        var li=document.getElementById(i);
+       
+        if(li.childNodes[1].checked==true)
+        {
+            li.style.display='none';
+            
+        }
     }
 }
 // -----------------------------------------------------------------
