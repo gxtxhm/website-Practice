@@ -24,7 +24,7 @@ div.appendChild(button1);
 div.appendChild(button2);
 //div 태그 만들고 안에 Delete-button 태그 2개 만들기
 var Ddiv=document.createElement('div');
-Ddiv.setAttribute("id","DeletecheckButton");
+Ddiv.setAttribute("class","checkButton");
 var Dbutton1=document.createElement('button');
 var Dbutton2=document.createElement('button');
 Dbutton1.setAttribute("id","DeleteOK");
@@ -33,6 +33,19 @@ Dbutton1.innerText="삭제";
 Dbutton2.innerText="취소";
 Ddiv.appendChild(Dbutton1);
 Ddiv.appendChild(Dbutton2);
+//div 태그 만들고 안에 Change-button 태그 2개 만들기
+var Cdiv=document.createElement('div');
+Cdiv.setAttribute('class','checkButton');
+var Cbutton1=document.createElement('button');
+var Cbutton2=document.createElement('button');
+Cbutton1.setAttribute("id","ChangeOK");
+Cbutton2.setAttribute("id","ChangeCANCEL");
+Cbutton1.innerText="변경";
+Cbutton2.innerText="취소";
+Cdiv.appendChild(Cbutton1);
+Cdiv.appendChild(Cbutton2);
+
+
 
 //목록 만들때 부여할 id값 변수
 var idValue=0;
@@ -142,3 +155,100 @@ function getCheckBoxValue(){//체크된 체크박스 display:none으로 만들�
     }
 }
 // -----------------------------------------------------------------
+
+// Change 관련 함수--------------------------------------------------
+
+function showChangeUI(){
+    var sc= document.getElementById('section');
+    sc.appendChild(Cdiv);
+    var Cok=document.getElementById('ChangeOK');
+    var Ccancel=document.getElementById('ChangeCANCEL');
+    Cok.addEventListener('click',clickChangeButton);      
+    Ccancel.addEventListener('click',clickChangeCancelButton);  
+    showChangeCheckBox();
+    
+}
+
+function showChangeCheckBox(){//change 체크박스 UI생성
+    
+    for(var i=0;i<idValue;i++)
+    {
+        var checkBox=document.createElement('input');
+        checkBox.setAttribute('type','checkbox');
+        checkBox.setAttribute('class','checkBox');
+        checkBox.setAttribute('onclick','getCheckBoxAddText()');
+        var li=document.getElementById(i);
+        li.appendChild(checkBox);
+    }
+    
+} 
+
+function getCheckBoxAddText(){//체크된 체크박스 옆에 input 태그 추가하기
+    for(var i=0;i<idValue;i++)
+    {
+        var li=document.getElementById(i);
+       
+        if(li.childNodes[1].checked==true)// 체크박스 선택 시
+        {
+            if(li.childElementCount<=2){
+                var text=document.createElement('input');
+                text.setAttribute("type","text");
+                text.setAttribute("size","60");
+                text.setAttribute("placeholder","최대 60자까지 입력하시오.");
+                text.value=li.childNodes[0].innerHTML;
+                li.appendChild(text);
+            }
+            
+        }
+        else if(li.childElementCount>2)//addText가 생성된 상황에서 체크박스 해제시 addText삭제
+        {
+            li.removeChild(li.childNodes[2]);
+        }
+        
+    }
+}
+
+function deleteChangeText(){// 변경을 위한 Text 삭제
+    for(var i=0;i<idValue;i++)
+    {
+        var li=document.getElementById(i);
+        if(li.childElementCount>2)
+        {
+            li.removeChild(li.childNodes[2]);   
+        }
+        
+    }
+}
+
+function deleteChangeUI(){//Change UI 삭제함수
+    section.removeChild(Cdiv);
+
+}
+
+function changePValue(){//수정한 목록을 적용시킨다.
+    for(var i=0;i<idValue;i++)
+    {
+        var li=document.getElementById(i);
+        if(li.childElementCount>2)
+        {
+            li.childNodes[0].innerText = li.childNodes[2].value;
+        }
+        
+    }
+}
+
+function clickChangeButton(){//OK버튼 눌렀을때
+    alert('변경을 완료했습니다.');
+    changePValue();
+    deleteChangeUI();
+    deleteChangeText();
+    deleteCheckBox();
+}
+
+function clickChangeCancelButton(){//취소버튼 눌렀을때
+    alert('변경을 취소합니다.');
+    deleteChangeUI();
+    deleteChangeText();
+    deleteCheckBox();
+}
+//------------------------------------------------------------------
