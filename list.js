@@ -4,13 +4,7 @@ var listLength=0;
 var label=document.createElement('label');
 label.setAttribute("id","create");
 label.innerHTML="추가할 항목 : ";
-//input 태그 만들기
-var input=document.createElement('input');
-input.setAttribute("type","text");
-input.setAttribute("size","60");
-input.setAttribute("placeholder","최대 60자까지 입력하시오.");
-input.setAttribute("id","Input");
-label.appendChild(input);
+
 //div 태그 만들고 안에 Create-button 태그 2개 만들기
 var div=document.createElement('div');
 div.setAttribute("id","checkButton");
@@ -44,8 +38,17 @@ Cbutton1.innerText="변경";
 Cbutton2.innerText="취소";
 Cdiv.appendChild(Cbutton1);
 Cdiv.appendChild(Cbutton2);
-
-
+//div 태그 만들고 안에 finish-button 태그 2개 만들기
+var Fdiv=document.createElement('div');
+Fdiv.setAttribute('class','checkButton');
+var Fbutton1=document.createElement('button');
+var Fbutton2=document.createElement('button');
+Fbutton1.setAttribute("id","FinishOK");
+Fbutton2.setAttribute("id","FinishCANCEL");
+Fbutton1.innerText="완료";
+Fbutton2.innerText="취소";
+Fdiv.appendChild(Fbutton1);
+Fdiv.appendChild(Fbutton2);
 
 //목록 만들때 부여할 id값 변수
 var idValue=0;
@@ -70,24 +73,40 @@ function addList(){
     ul.appendChild(li);
      
     alert('항목추가완료');
+    DeleteInput();
     listLength++;
     idValue++;
 }
 //추가 기능 필드 삭제
 function deleteFieldAdd(){
+    DeleteInput();
     section.removeChild(label);
     section.removeChild(div);
     alert('항목추가를 취소하였습니다.');
 }
+//input상자 삭제
+function DeleteInput(){
+    
+    label.removeChild(label.childNodes[1]);
+}
 //추가 기능 필드 생성
 function createFieldAdd(){
     var sc= document.getElementById('section');
+    //input 태그 만들기
+    var input=document.createElement('input');
+    input.setAttribute("type","text");
+    input.setAttribute("size","60");
+    input.setAttribute("placeholder","최대 60자까지 입력하시오.");
+    input.setAttribute("id","Input");
+    label.appendChild(input);
+    //---------------
     sc.appendChild(label);
     sc.appendChild(div);
     var ok=document.getElementById('OK');
     var cancel=document.getElementById('CANCEL');
     ok.addEventListener('click',addList);
     cancel.addEventListener('click',deleteFieldAdd);
+    
 }
 //-----***------------------------------------------------------
 
@@ -138,6 +157,7 @@ function deleteCheckBox(){//체크박스 삭제하기
     for(var i=0;i<idValue;i++)
     {
         var li=document.getElementById(i);
+        if(li.childElementCount>=2)
         li.removeChild(li.childNodes[1]);
     }
 }
@@ -250,5 +270,80 @@ function clickChangeCancelButton(){//취소버튼 눌렀을때
     deleteChangeUI();
     deleteChangeText();
     deleteCheckBox();
+}
+//------------------------------------------------------------------
+
+//Finish 관련 함수---------------------------------------------------
+
+function showFinishUI(){//완료/ 취소 버튼 생성
+    var sc=document.getElementById('section');
+    sc.appendChild(Fdiv);
+    var ok=document.getElementById('FinishOK');
+    var cancel=document.getElementById('FinishCANCEL');
+    ok.addEventListener('click',clickFinishButton);
+    cancel.addEventListener('click',clickFinishCancelButton);
+    showFinishCheckBox();
+}
+
+function DeleteFinishUI(){//버튼 UI 삭제 함수
+    var sc=document.getElementById('section');
+    sc.removeChild(Fdiv);
+    deleteCheckBox();
+}
+
+function clickFinishButton(){
+    alert('해당 목록을 완료하였습니다.');
+    addFinishList();
+    DeleteFinishUI();
+}
+
+function clickFinishCancelButton(){
+    alert('완료기능이 취소됩니다.');
+    DeleteFinishUI();
+}
+
+function showFinishCheckBox(){//finish 체크박스 UI생성
+    
+    for(var i=0;i<idValue;i++)
+    {
+        var checkBox=document.createElement('input');
+        checkBox.setAttribute('type','checkbox');
+        checkBox.setAttribute('class','checkBox');
+        var li=document.getElementById(i);
+        li.appendChild(checkBox);
+    }
+    
+} 
+
+function addFinishList(){//완료 항목에 List 추가
+
+    var listText=getCheckBoxTextValue();
+    
+    if(listText==null)return ;
+    
+    var li=document.createElement('li');
+    var p=document.createElement('p');
+    p.innerHTML=listText;
+    li.appendChild(p);
+
+    var ul=document.getElementById('finishList');
+    ul.appendChild(li);
+     
+    
+    
+    
+}
+
+function getCheckBoxTextValue(){//체크된 체크박스 항목 내용 리턴
+    for(var i=0;i<idValue;i++)
+    {
+        var li=document.getElementById(i);
+       
+        if(li.childNodes[1].checked==true)// 체크박스 선택 시
+        {    
+            li.style.display='none';
+            return li.childNodes[0].innerHTML;
+        }
+    }
 }
 //------------------------------------------------------------------

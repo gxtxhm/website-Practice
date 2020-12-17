@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="button.css">
     <link rel="stylesheet" href="create.css">
     <link rel="stylesheet" href="delete.css">
+    <link rel="stylesheet" href="finish.css">
 </head>
 <body>
     <div id=wrapper>
@@ -21,9 +22,11 @@
           
             <h4><a href="To-do-list.html" id="Home">my list</a></h4>  
             
-            <ul id="myList">
+           <div id="myListdiv">
+             <ul id="myList">
                     
-            </ul>
+             </ul>
+           </div>
             
                 <ul id="buttonUl">
                     <li>
@@ -33,22 +36,20 @@
                         <button onclick="showChangeUI()">Change</button>
                     </li>
                     <li>
-                        <button>Finish</button>
+                        <button onclick="showFinishUI()">Finish</button>
                     </li>
                     <li>
                         <button onclick="showDeleteUI()">Delete</button>
                     </li>
-                </ul>
-               
-                
-               
-                   
-                  
-               
-               
-               
+                </ul> 
+               <div id="finishListdiv">
+                   <h3>finishList</h3>
+                   <ul id="finishList">
+                       
+                   </ul>
+               </div>
         </section>
-
+       
         <footer>
            <address>
                <p id="firstP">개발자 연락처</p>

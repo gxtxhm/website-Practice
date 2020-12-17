@@ -17,7 +17,7 @@
 }
 .myListLI{
     position: relative;
-    left: 100px;
+    left: 20px;
     line-height: normal;
 }
 
@@ -25,4 +25,10 @@
     font-size: 30px;
     color: red;
     display: inline;
+}
+#myListdiv{
+    width: 69.5%;
+    height: 65%;
+    border: black solid;
+    float: left;
 }
